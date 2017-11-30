@@ -18,7 +18,7 @@ I/O Ports Used:
 | D6       |               |
 | D7       |               |
 
-| First Header  | Second Header |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
+| First Header    | Second Header |
+| -------------   | ------------- |
+| Content Cell    | Content Cell  |
+| Content Cell    | Content Cell  |
