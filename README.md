@@ -1,6 +1,6 @@
 # EE302-FinalProject
 
-##EE302 Final Project
+## EE302 Final Project
 Automatic Line Following Robot
 
 Code written for Arduino Uno
