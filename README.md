@@ -4,9 +4,24 @@
 
 Automatic Line Following Robot
 
-#
+### This Repo:
 
-Code written for Arduino Uno
+This Project contains Code written for Arduino Uno which is used to control our
+robot, including supplying PVM-modulated power to both of the motors depending
+on the current readings from different sensors used.
+
+### Parts List:
+
+* Arduino Uno (Rev3)
+   *Used instead of MyDAQ, due to easier interfacing and programming*
+* 2 x DC Motor
+* 1 x L293D H-Bridge IC
+* 4 x AA Battery
+* 1 x AA Battery Case (4xAA)
+* 1 x 9V Battery
+* 1 x Flex Sensor
+* 1 x GPZY0A0ZYK0F IR Distance Sensor
+* 2 x Photo-resistors
 
 ### I/O Ports Used:
 
