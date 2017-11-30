@@ -1,6 +1,5 @@
 # EE302-FinalProject
 
-## EE302 Final Project
 Automatic Line Following Robot
 
 Code written for Arduino Uno
@@ -18,3 +17,8 @@ I/O Ports Used:
 | D5       |               |
 | D6       |               |
 | D7       |               |
+
+| First Header  | Second Header |
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
