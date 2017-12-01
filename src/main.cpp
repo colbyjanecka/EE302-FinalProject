@@ -26,12 +26,14 @@
 // Initialize the functions and variables that will be used:
 
 void blinkLED();      // Blinks LED
+
 #define motorLPin1 0
 #define motorLPin2 1
 #define motorRPin1 2
 #define motorRPin2 3
 #define motorLEnable 9
 #define motorREnable 10
+
 
 int  photoLeft = 0;    // Analogs initialized as integers
 int  photoMiddle = 1;
@@ -44,7 +46,7 @@ int  irRight = 5;
  * Performs initial setup of different variables and interfaces. Runs once. */
 void setup() {
 
-    Serial.begin(9600);           // Start Console
+//    Serial.begin(9600);           // Start Console
 
     pinMode(motorLEnable, OUTPUT);
     pinMode(motorREnable, OUTPUT);
@@ -57,6 +59,8 @@ void setup() {
 
     pinMode(LED_BUILTIN, OUTPUT);
 
+
+/**
     pinMode(A0, INPUT);  // It may not be requried to initialize these as inputs
     pinMode(A1, INPUT);
     pinMode(A2, INPUT);
@@ -64,6 +68,7 @@ void setup() {
     pinMode(A3, INPUT);
     pinMode(A4, INPUT);
     pinMode(A5, INPUT);
+*/
 
 }
 
@@ -73,14 +78,14 @@ void setup() {
 
 /*     adjustMotor
  * Adjusts motor speed depending on the gathered conditions from sensors. */
- void adjustMotor(){
+ int adjustMotor(){
 
    // . . . Get motor speed
-   analogWrite(motorLEnable, 153);
+   analogWrite(motorLEnable, 255);
    analogWrite(motorREnable, 255);
 
-   digitalWrite(motorLPin1, HIGH);
-   digitalWrite(motorLPin2, LOW);
+   digitalWrite(motorLPin1, LOW);
+   digitalWrite(motorLPin2, HIGH);
    digitalWrite(motorRPin1, HIGH);
    digitalWrite(motorRPin2, LOW);           //call update sensors at the end of this to continue to poll8
 
@@ -175,9 +180,11 @@ void updateData(){
 
     scanPhotoresistor();
 
-    scanIRSensor();
+    scanIRSideSensor();
+    scanIRFrontSensor();
 
 }
+
 
 /* LOOP
  * Main loop that is performed continuously after the device is
@@ -186,7 +193,7 @@ void loop()
 {
 
     blinkLED();       // Visually indicate the beginning of the program
-    updateData();     // Gather newest sensor data
+//    updateData();     // Gather newest sensor data
     adjustMotor();    // Sets left and right motor speed depending on desired direction
 
 }
