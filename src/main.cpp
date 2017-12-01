@@ -37,12 +37,14 @@ int  photoLeft = 0;    // Analogs initialized as integers
 int  photoMiddle = 1;
 int  photoRight = 2;
 int  irLeft = 3;
-int  irMiddle = 4; 
-int  irRight = 5; 
+int  irMiddle = 4;
+int  irRight = 5;
 
 /*  SETUP
  * Performs initial setup of different variables and interfaces. Runs once. */
 void setup() {
+
+    Serial.begin(9600);           // Start Console
 
     pinMode(motorLEnable, OUTPUT);
     pinMode(motorREnable, OUTPUT);
@@ -103,25 +105,31 @@ void scanPhotoresistor(){
  float val_pr_middle = analogRead(photoMiddle); // We need them outside of it, but I don't want to declare them
  float val_pr_right = analogRead(photoRight);  // As global variables
 
-  
-  if (val_pr_middle > /* minimum value of black reading */) && (val_pr_middle < /* maximum value of black reading */){      // Middle Reads black, check the other sides to figure out what way to turn
 
-      if (val_pr_left > /* minimum value of black reading */) && (val_pr_left < /* maximum value of black reading */) /* and the other side is white */{ 
+  if ((val_pr_middle > 2.89 /* minimum value of black reading */) && (val_pr_middle < 3.31/* maximum value of black reading */)){      // Middle Reads black, check the other sides to figure out what way to turn
+
+      if ((val_pr_left > 2.89 /* minimum value of black reading */) && (val_pr_left < 3.31/* maximum value of black reading */)) /* and the other side is white */{
+
         //turn left function call
+        Serial.println(" Queue Turn Left Function");
       }
-       
-      if (val_pr_right > /* minimum value of black reading */) && (val_pr_right < /* maximum value of black reading */) /*and the other side is white*/ {
+
+      if ((val_pr_right > 2.89/* minimum value of black reading */) && (val_pr_right < 3.31/* maximum value of black reading */)) /*and the other side is white*/ {
+
         //turn right function call
+        Serial.println(" Queue Turn Right Function");
       }
   }
 
-  if (val_pr_middle > /*minimum value for red reading */) && (val_pr_middle < /* maximum value of red reading */){
+  if ((val_pr_middle > 2.48 /*minimum value for red reading */) && (val_pr_middle < 2.89 /* maximum value of red reading */)){
+
       // stopMotor();  Need to define stop function
+      Serial.println(" Queue Stop Function");
 
   }
 
-  if (val_pr_middle > /*minimum value for white reading */) && (val_pr_middle < /*maximum value for white reading */){
-      scanIRSensor();
+  if ((val_pr_middle > 1.41 /*minimum value for white reading */) && (val_pr_middle < 1.85 /*maximum value for white reading */)){
+      // run scanIRSensor();
   }
 }
 
@@ -131,7 +139,7 @@ float  val_ir_left = analogRead(irLeft);
 float  val_ir_middle = analogRead(irMiddle);
 float  val_ir_right = analogRead(irLeft);
 
-  
+
 
 }
 
