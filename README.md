@@ -10,6 +10,8 @@ This Project contains Code written for Arduino Uno which is used to control our
 robot, including supplying PVM-modulated power to both of the motors depending
 on the current readings from different sensors used.
 
+You can find the code in [/src/main.cpp](https://github.com/colbyjanecka/EE302-FinalProject/blob/master/src/main.cpp)
+
 ### Parts List:
 
 * Arduino Uno (Rev3)
