@@ -129,16 +129,41 @@ void scanPhotoresistor(){
   }
 
   if ((val_pr_middle > 1.41 /*minimum value for white reading */) && (val_pr_middle < 1.85 /*maximum value for white reading */)){
-      // run scanIRSensor();
+      // run scanIRSideSensor();
   }
 }
 
-void scanIRSensor(){
+void scanIRSideSensor(){
 
-float  val_ir_left = analogRead(irLeft);
-float  val_ir_middle = analogRead(irMiddle);
-float  val_ir_right = analogRead(irLeft);
+  float  val_ir_left = analogRead(irLeft);
+  float  val_ir_right = analogRead(irLeft);
 
+  if(val_ir_left > val_ir_right){
+
+  //Call right turn function
+  }
+
+  if(val_ir_left < val_ir_right){
+
+    //Call left turn function
+  }
+
+  else{
+
+    //Call straight turn function
+
+  }
+}
+
+void scanIRFrontSensor(){
+
+  float val_ir_middle = analogRead(irMiddle);
+
+  if((val_ir_middle > 2.48) && (val_ir_middle < 2.89)){
+      //Call stop function
+
+
+  }
 
 
 }
