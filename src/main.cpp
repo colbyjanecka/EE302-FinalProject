@@ -111,6 +111,6 @@ void loop()
 
     blinkLED();       // Visually indicate the beginning of the program
     updateData();     // Gather newest sensor data
-    adjustMotor();
+    adjustMotor();    // Sets left and right motor speed depending on desired direction
 
 }
