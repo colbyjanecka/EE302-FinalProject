@@ -18,6 +18,9 @@
  * | D5       |               |     |          |               |
  * | D6       |               |     |          |               |
  * | D7       |               |     |          |               |
+ * | D8       |               |     |          |               |
+ * | D9       | MotorL Enable |     |          |               |
+ * | D10      | MotorR Enable |     |          |               |
 **/
 
 // Initialize the functions and variables that will be used:
