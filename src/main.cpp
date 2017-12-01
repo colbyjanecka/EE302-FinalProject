@@ -10,12 +10,12 @@
  *
  * | Port     | Destination   |     | Port     | Destination   |
  * |:--------:|:-------------:| --- |:--------:|:-------------:|
- * | D0       | MotorL Pin 1  |     | A0       |               |
- * | D1       | MotorL Pin 2  |     | A1       |               |
- * | D2       | MotorR Pin 1  |     | A2       |               |
- * | D3       | MotorR Pin 2  |     | A3       |               |
- * | D4       |               |     |          |               |
- * | D5       |               |     |          |               |
+ * | D0       | MotorL Pin 1  |     | A0       | Left PhotoR   |
+ * | D1       | MotorL Pin 2  |     | A1       | Middle PhotoR |
+ * | D2       | MotorR Pin 1  |     | A2       | Right PhotoR  |
+ * | D3       | MotorR Pin 2  |     | A3       | Left IR       |
+ * | D4       |               |     | A4       | Middle IR     |
+ * | D5       |               |     | A5       | Right IR      |
  * | D6       |               |     |          |               |
  * | D7       |               |     |          |               |
  * | D8       |               |     |          |               |
@@ -33,6 +33,13 @@ void blinkLED();      // Blinks LED
 #define motorLEnable 9
 #define motorREnable 10
 
+int  photoLeft = 0;    // Analogs initialized as integers
+int  photoMiddle = 1;
+int  photoRight = 2;
+int  irLeft = 3;
+int  irMiddle = 4; 
+int  irRight = 5; 
+
 /*  SETUP
  * Performs initial setup of different variables and interfaces. Runs once. */
 void setup() {
@@ -47,6 +54,14 @@ void setup() {
     pinMode(motorRPin2, OUTPUT);
 
     pinMode(LED_BUILTIN, OUTPUT);
+
+    pinMode(A0, INPUT);  // It may not be requried to initialize these as inputs
+    pinMode(A1, INPUT);
+    pinMode(A2, INPUT);
+
+    pinMode(A3, INPUT);
+    pinMode(A4, INPUT);
+    pinMode(A5, INPUT);
 
 }
 
@@ -65,7 +80,7 @@ void setup() {
    digitalWrite(motorLPin1, HIGH);
    digitalWrite(motorLPin2, LOW);
    digitalWrite(motorRPin1, HIGH);
-   digitalWrite(motorRPin2, LOW);
+   digitalWrite(motorRPin2, LOW);           //call update sensors at the end of this to continue to poll8
 
 }
 
@@ -84,15 +99,35 @@ void blinkLED(){
 
 void scanPhotoresistor(){
 
+  val_pr_left = analogRead(photoLeft);     // Not sure how to return these values from the function
+  val_pr_middle = analogRead(photoMiddle); // We need them outside of it, but I don't want to declare them
+  val_pr_right = analogRead(photoRight);  // As global variables
+
+  
+  if (val_pr_middle > /* minimum value of black reading */) && (val_pr_middle < /* maximum value of black reading */){      // Middle Reads black, check the other sides to figure out what way to turn
+
+      if (val_pr_left > /* minimum value of black reading */) && (val_pr_left < /* maximum value of black reading */) /* and the other side is white */{ 
+        //turn left function call
+      }
+       
+      if (val_pr_right > /* minimum value of black reading */) && (val_pr_right < /* maximum value of black reading */) /*and the other side is white*/ {
+        //turn right function call
+      }
+
+      
+  }
 }
 
 void scanIRSensor(){
 
+  val_ir_left = analogRead(irLeft);
+  val_ir_middle = analogRead(irMiddle);
+  val_ir_right = analogRead(irLeft);
+
+  
+
 }
 
-void scanFlexSensor(){
-
-}
 
 /* updateData
  * This function gathers the most current contitions from each of the sensors. */
