@@ -113,8 +113,15 @@ void scanPhotoresistor(){
       if (val_pr_right > /* minimum value of black reading */) && (val_pr_right < /* maximum value of black reading */) /*and the other side is white*/ {
         //turn right function call
       }
+  }
 
-      
+  if (val_pr_middle > /*minimum value for red reading */) && (val_pr_middle < /* maximum value of red reading */){
+      // stopMotor();  Need to define stop function
+
+  }
+
+  if (val_pr_middle > /*minimum value for white reading */) && (val_pr_middle < /*maximum value for white reading */){
+      scanIRSensor();
   }
 }
 
@@ -136,8 +143,6 @@ void updateData(){
     scanPhotoresistor();
 
     scanIRSensor();
-
-    scanFlexSensor();
 
 }
 
