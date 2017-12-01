@@ -25,7 +25,7 @@ You can find the code in [/src/main.cpp](https://github.com/colbyjanecka/EE302-F
 * 1 x GPZY0A0ZYK0F IR Distance Sensor
 * 2 x Photo-resistors
 
-### I/O Ports Used:
+### Arduino I/O Ports Used:
 
 | Port     | Destination   |     | Port     | Destination   |
 |:--------:|:-------------:| --- |:--------:|:-------------:|
