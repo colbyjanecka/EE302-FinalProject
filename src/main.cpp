@@ -99,9 +99,9 @@ void blinkLED(){
 
 void scanPhotoresistor(){
 
-  val_pr_left = analogRead(photoLeft);     // Not sure how to return these values from the function
-  val_pr_middle = analogRead(photoMiddle); // We need them outside of it, but I don't want to declare them
-  val_pr_right = analogRead(photoRight);  // As global variables
+ float val_pr_left = analogRead(photoLeft);     // Not sure how to return these values from the function
+ float val_pr_middle = analogRead(photoMiddle); // We need them outside of it, but I don't want to declare them
+ float val_pr_right = analogRead(photoRight);  // As global variables
 
   
   if (val_pr_middle > /* minimum value of black reading */) && (val_pr_middle < /* maximum value of black reading */){      // Middle Reads black, check the other sides to figure out what way to turn
@@ -127,9 +127,9 @@ void scanPhotoresistor(){
 
 void scanIRSensor(){
 
-  val_ir_left = analogRead(irLeft);
-  val_ir_middle = analogRead(irMiddle);
-  val_ir_right = analogRead(irLeft);
+float  val_ir_left = analogRead(irLeft);
+float  val_ir_middle = analogRead(irMiddle);
+float  val_ir_right = analogRead(irLeft);
 
   
 
