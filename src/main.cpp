@@ -26,6 +26,7 @@
 // Initialize the functions and variables that will be used:
 
 void blinkLED();      // Blinks LED
+
 #define motorLPin1 0
 #define motorLPin2 1
 #define motorRPin1 2
