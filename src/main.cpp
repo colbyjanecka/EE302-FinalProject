@@ -142,9 +142,9 @@ void scanPhotoresistor(){
  serial.Println(val_pr_middle);
  serial.Println(val_pr_middle);
 
-  if (val_pr_middle > 2.89 /* minimum value of black reading */){      // Middle Reads black, check the other sides to figure out what way to turn
+  if (val_pr_middle > 650 /* minimum value of black reading */){      // Middle Reads black, check the other sides to figure out what way to turn
 
-      if (val_pr_left > 2.89 /* minimum value of black reading */){
+      if (val_pr_left > 650 /* minimum value of black reading */){
 
         //turn left function call
         Serial.println(" Queue Turn Left Function");
@@ -152,7 +152,7 @@ void scanPhotoresistor(){
 
         }
 
-      if (val_pr_right > 2.89/* minimum value of black reading */){
+      if (val_pr_right > 650/* minimum value of black reading */){
         //turn right function call
         Serial.println(" Queue Turn Right Function");
         adjustMotor(2);
@@ -166,14 +166,14 @@ void scanPhotoresistor(){
 
   }
 
-  if ((val_pr_middle > 2.48 /*minimum value for red reading */) && (val_pr_middle < 2.89 /* maximum value of red reading */)){
+  if ((val_pr_middle > 400 /*minimum value for red reading */) && (val_pr_middle < 475 /* maximum value of red reading */)){
 
       // stopMotor();  Need to define stop function
       Serial.println(" Queue Stop Function");
       adjustMotor(3);
   }
 
-  if (val_pr_middle < 1.85 /*maximum value for white reading */){
+  if (val_pr_middle < 350 /*maximum value for white reading */){
       // run scanIRSideSensor();
   }
 
