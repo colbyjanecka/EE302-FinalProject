@@ -155,6 +155,12 @@ void scanPhotoresistor(){
         adjustMotor(2);
         }
 
+      else{
+
+        adjustMotor(0);
+
+      }
+
   }
 
   if ((val_pr_middle > 2.48 /*minimum value for red reading */) && (val_pr_middle < 2.89 /* maximum value of red reading */)){
