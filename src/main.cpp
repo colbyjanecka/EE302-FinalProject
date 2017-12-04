@@ -46,6 +46,9 @@ const int  irRight = 5;
  * Performs initial setup of different variables and interfaces. Runs once. */
 void setup() {
 
+
+    String direction;
+
 //    Serial.begin(9600);           // Start Console
 
     pinMode(motorLEnable, OUTPUT);
@@ -78,16 +81,34 @@ void setup() {
 
 /*     adjustMotor
  * Adjusts motor speed depending on the gathered conditions from sensors. */
- int adjustMotor(){
+ int adjustMotor(int s){
 
    // . . . Get motor speed
-   analogWrite(motorLEnable, 255);
-   analogWrite(motorREnable, 255);
+   analogWrite(motorLEnable, 100);
+   analogWrite(motorREnable, 100);
 
-   digitalWrite(motorLPin1, LOW);
-   digitalWrite(motorLPin2, HIGH);
-   digitalWrite(motorRPin1, HIGH);
-   digitalWrite(motorRPin2, LOW);           //call update sensors at the end of this to continue to poll8
+
+  if (s == 1){
+    digitalWrite(motorLPin1, LOW);
+    digitalWrite(motorLPin2, HIGH);
+    digitalWrite(motorRPin1, HIGH);
+    digitalWrite(motorRPin2, LOW);
+
+  }
+  else if (s == 2) {
+    digitalWrite(motorLPin1, HIGH);
+    digitalWrite(motorLPin2, LOW);
+    digitalWrite(motorRPin1, LOW);
+    digitalWrite(motorRPin2, HIGH);
+
+  }
+  else {
+    digitalWrite(motorLPin1, HIGH);
+    digitalWrite(motorLPin2, LOW);
+    digitalWrite(motorRPin1, HIGH);
+    digitalWrite(motorRPin2, LOW);
+  }
+             //call update sensors at the end of this to continue to poll8
 
 }
 
@@ -117,7 +138,8 @@ void scanPhotoresistor(){
 
         //turn left function call
         Serial.println(" Queue Turn Left Function");
-      
+        // adjustMotor(left);
+
         }
 
       if (val_pr_right > 2.89/* minimum value of black reading */){
@@ -125,7 +147,7 @@ void scanPhotoresistor(){
         Serial.println(" Queue Turn Right Function");
         }
 
-  }    
+  }
 
   if ((val_pr_middle > 2.48 /*minimum value for red reading */) && (val_pr_middle < 2.89 /* maximum value of red reading */)){
 
@@ -199,6 +221,11 @@ void loop()
 
     blinkLED();       // Visually indicate the beginning of the program
 //    updateData();     // Gather newest sensor data
-    adjustMotor();    // Sets left and right motor speed depending on desired direction
+    adjustMotor(1);    // Turn Left
+    delay(5000);
+    adjustMotor(2);   //Turn right
+    delay(5000);
+    adjustMotor(0);   //Go Straight
+    delay(5000);
 
 }
