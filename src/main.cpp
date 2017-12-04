@@ -152,7 +152,7 @@ void scanPhotoresistor(){
 
         }
 
-      if (val_pr_right > 650/* minimum value of black reading */){
+      if (val_pr_right > 490/* right reading differently, thfre more  */){
         //turn right function call
         Serial.println(" Queue Turn Right Function");
         adjustMotor(2);
