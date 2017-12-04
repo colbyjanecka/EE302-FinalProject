@@ -46,7 +46,6 @@ const int  irRight = 5;
  * Performs initial setup of different variables and interfaces. Runs once. */
 void setup() {
 
-
     String direction;
 
 //    Serial.begin(9600);           // Start Console
@@ -63,7 +62,7 @@ void setup() {
     pinMode(LED_BUILTIN, OUTPUT);
 
 
-/**
+
     pinMode(A0, INPUT);  // It may not be requried to initialize these as inputs
     pinMode(A1, INPUT);
     pinMode(A2, INPUT);
@@ -71,7 +70,7 @@ void setup() {
     pinMode(A3, INPUT);
     pinMode(A4, INPUT);
     pinMode(A5, INPUT);
-*/
+
 
 }
 
@@ -101,6 +100,12 @@ void setup() {
     digitalWrite(motorRPin1, LOW);
     digitalWrite(motorRPin2, HIGH);
 
+  }
+  else if (s == 3){
+    digitalWrite(motorLPin1, LOW);
+    digitalWrite(motorLPin2, LOW);
+    digitalWrite(motorRPin1, LOW);
+    digitalWrite(motorRPin2, LOW);
   }
   else {
     digitalWrite(motorLPin1, HIGH);
@@ -138,13 +143,14 @@ void scanPhotoresistor(){
 
         //turn left function call
         Serial.println(" Queue Turn Left Function");
-        // adjustMotor(left);
+        adjustMotor(1);
 
         }
 
       if (val_pr_right > 2.89/* minimum value of black reading */){
         //turn right function call
         Serial.println(" Queue Turn Right Function");
+        adjustMotor(2);
         }
 
   }
@@ -153,7 +159,7 @@ void scanPhotoresistor(){
 
       // stopMotor();  Need to define stop function
       Serial.println(" Queue Stop Function");
-
+      adjustMotor(3);
   }
 
   if (val_pr_middle < 1.85 /*maximum value for white reading */){
@@ -170,17 +176,20 @@ void scanIRSideSensor(){
   if(val_ir_left > val_ir_right){
 
   //Call right turn function
+  adjustMotor(2);
+
   }
 
   if(val_ir_left < val_ir_right){
 
     //Call left turn function
+    adjustMotor(1);
   }
 
   else{
 
     //Call straight turn function
-
+    adjustMotor(0);
   }
 }
 
@@ -190,13 +199,13 @@ void scanIRFrontSensor(){
 
   if(val_ir_middle > 2.48){
       //Call stop function
-
+      adjustMotor(3);
   }
 
   else{
 
   //Call Straight turn function
-
+    adjustMotor(0);
   }
 }
 
@@ -208,9 +217,20 @@ void updateData(){
     scanPhotoresistor();
 
     scanIRSideSensor();
+
     scanIRFrontSensor();
 
 }
+
+void motorTest(){
+
+    adjustMotor(1);    // Turn Left
+    delay(5000);
+    adjustMotor(2);   //Turn right
+    delay(5000);
+    adjustMotor(0);   //Go Straight
+    delay(5000);
+  }
 
 
 /* LOOP
@@ -220,12 +240,6 @@ void loop()
 {
 
     blinkLED();       // Visually indicate the beginning of the program
-//    updateData();     // Gather newest sensor data
-    adjustMotor(1);    // Turn Left
-    delay(5000);
-    adjustMotor(2);   //Turn right
-    delay(5000);
-    adjustMotor(0);   //Go Straight
-    delay(5000);
+    updateData();     // Gather newest sensor data
 
 }
