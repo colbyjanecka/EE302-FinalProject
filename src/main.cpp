@@ -35,12 +35,12 @@ void blinkLED();      // Blinks LED
 #define motorREnable 10
 
 
-int  photoLeft = 0;    // Analogs initialized as integers
-int  photoMiddle = 1;
-int  photoRight = 2;
-int  irLeft = 3;
-int  irMiddle = 4;
-int  irRight = 5;
+const int  photoLeft = 0;    // Analogs initialized as integers
+const int  photoMiddle = 1;
+const int  photoRight = 2;
+const int  irLeft = 3;
+const int  irMiddle = 4;
+const int  irRight = 5;
 
 /*  SETUP
  * Performs initial setup of different variables and interfaces. Runs once. */
@@ -111,20 +111,21 @@ void scanPhotoresistor(){
  float val_pr_right = analogRead(photoRight);  // As global variables
 
 
-  if ((val_pr_middle > 2.89 /* minimum value of black reading */) && (val_pr_middle < 3.31/* maximum value of black reading */)){      // Middle Reads black, check the other sides to figure out what way to turn
+  if (val_pr_middle > 2.89 /* minimum value of black reading */){      // Middle Reads black, check the other sides to figure out what way to turn
 
-      if ((val_pr_left > 2.89 /* minimum value of black reading */) && (val_pr_left < 3.31/* maximum value of black reading */)) /* and the other side is white */{
+      if (val_pr_left > 2.89 /* minimum value of black reading */){
 
         //turn left function call
         Serial.println(" Queue Turn Left Function");
-      }
+      
+        }
 
-      if ((val_pr_right > 2.89/* minimum value of black reading */) && (val_pr_right < 3.31/* maximum value of black reading */)) /*and the other side is white*/ {
-
+      if (val_pr_right > 2.89/* minimum value of black reading */){
         //turn right function call
         Serial.println(" Queue Turn Right Function");
-      }
-  }
+        }
+
+  }    
 
   if ((val_pr_middle > 2.48 /*minimum value for red reading */) && (val_pr_middle < 2.89 /* maximum value of red reading */)){
 
@@ -133,9 +134,10 @@ void scanPhotoresistor(){
 
   }
 
-  if ((val_pr_middle > 1.41 /*minimum value for white reading */) && (val_pr_middle < 1.85 /*maximum value for white reading */)){
+  if (val_pr_middle < 1.85 /*maximum value for white reading */){
       // run scanIRSideSensor();
   }
+
 }
 
 void scanIRSideSensor(){
@@ -164,13 +166,16 @@ void scanIRFrontSensor(){
 
   float val_ir_middle = analogRead(irMiddle);
 
-  if((val_ir_middle > 2.48) && (val_ir_middle < 2.89)){
+  if(val_ir_middle > 2.48){
       //Call stop function
-
 
   }
 
+  else{
 
+  //Call Straight turn function
+
+  }
 }
 
 
