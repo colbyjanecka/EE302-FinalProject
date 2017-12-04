@@ -108,7 +108,9 @@ void setup() {
     digitalWrite(motorRPin1, HIGH);
     digitalWrite(motorRPin2, LOW);
   }
-             //call update sensors at the end of this to continue to poll8
+  
+  scanPhotoresistor();
+  scanIRFrontSensor();        //call update sensors at the end of this to continue to poll8
 
 }
 
