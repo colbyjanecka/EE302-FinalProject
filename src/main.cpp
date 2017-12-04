@@ -138,6 +138,9 @@ void scanPhotoresistor(){
  float val_pr_middle = analogRead(photoMiddle); // We need them outside of it, but I don't want to declare them
  float val_pr_right = analogRead(photoRight);  // As global variables
 
+ serial.Println(val_pr_left);
+ serial.Println(val_pr_middle);
+ serial.Println(val_pr_middle);
 
   if (val_pr_middle > 2.89 /* minimum value of black reading */){      // Middle Reads black, check the other sides to figure out what way to turn
 
