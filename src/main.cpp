@@ -83,13 +83,13 @@ void setup() {
  int adjustMotor(int s){
 
    // . . . Get motor speed
-   analogWrite(motorLEnable, 100);
-   analogWrite(motorREnable, 100);
+   analogWrite(motorLEnable, 130);
+   analogWrite(motorREnable, 130);
 
 
   if (s == 1){
     digitalWrite(motorLPin1, LOW);
-    digitalWrite(motorLPin2, HIGH);
+    digitalWrite(motorLPin2, LOW);
     digitalWrite(motorRPin1, HIGH);
     digitalWrite(motorRPin2, LOW);
 
@@ -98,7 +98,7 @@ void setup() {
     digitalWrite(motorLPin1, HIGH);
     digitalWrite(motorLPin2, LOW);
     digitalWrite(motorRPin1, LOW);
-    digitalWrite(motorRPin2, HIGH);
+    digitalWrite(motorRPin2, LOW);
 
   }
   else if (s == 3){
@@ -114,9 +114,6 @@ void setup() {
     digitalWrite(motorRPin2, LOW);
   }
 
-//  scanPhotoresistor();
-//  scanIRFrontSensor();        //call update sensors at the end of this to continue to poll8
-
 }
 
 /* blinkLED
@@ -131,73 +128,25 @@ void blinkLED(){
 
 }
 
-
-void scanPhotoresistor(){
-
- float val_pr_left = analogRead(photoLeft);     // Not sure how to return these values from the function
- float val_pr_middle = analogRead(photoMiddle); // We need them outside of it, but I don't want to declare them
- float val_pr_right = analogRead(photoRight);  // As global variables
-
- //Serial.println(val_pr_left);
- //Serial.println(val_pr_middle);
- //Serial.println(val_pr_right);
-
-  //if (val_pr_middle > 650 /* minimum value of black reading */){      // Middle Reads black, check the other sides to figure out what way to turn
-
-      if (val_pr_left > 475 /* minimum value of black reading */){
-
-        //turn left function call
-        Serial.println(" Queue Turn Left Function");
-        adjustMotor(1);
-
-        }
-
-      if (val_pr_right > 475 /* right reading differently, thfre more  */){
-        //turn right function call
-        Serial.println(" Queue Turn Right Function");
-        adjustMotor(2);
-        }
-
-      else{
-
-        adjustMotor(0);
-
-      } 
-
- // }
-
- // if ((val_pr_middle > 450 /*minimum value for red reading */) && (val_pr_middle < 525 /* maximum value of red reading */)){
-
-      // stopMotor();  Need to define stop function
-     // Serial.println(" Queue Stop Function");
-     // adjustMotor(3);
-  //}
-
- // if ((val_pr_middle < 425 /*maximum value for white reading */) && (val_pr_left < 425) && (val_pr_right <425)){
-      // run scanIRSideSensor();s
-  //}
-
-}
-
-/* void scanIRSideSensor(){
+void scanIRSideSensor(){
 
   float  val_ir_left = analogRead(irLeft);
   float  val_ir_right = analogRead(irLeft);
 
-  if(val_ir_left > val_ir_right){
+  if (val_ir_left > val_ir_right){
 
   //Call right turn function
- adjustMotor(2);
+  adjustMotor(2);
 
- // }
-
-  //if(val_ir_left < val_ir_right){
-
-    //Call left turn function
-  //  adjustMotor(1);
   }
 
- // else{
+  else if (val_ir_left < val_ir_right){
+
+    //Call left turn function
+    adjustMotor(1);
+  }
+
+  else if (val_ir_left == val_ir_right){
 
     //Call straight turn function
     adjustMotor(0);
@@ -219,7 +168,49 @@ void scanIRFrontSensor(){
     adjustMotor(0);
   }
 }
-*/
+
+void scanPhotoresistor(){
+
+ float val_pr_left = analogRead(photoLeft);     // Not sure how to return these values from the function
+ float val_pr_middle = analogRead(photoMiddle); // We need them outside of it, but I don't want to declare them
+ float val_pr_right = analogRead(photoRight);  // As global variables
+
+ //Serial.println(val_pr_left);
+ Serial.println(val_pr_middle);
+ //Serial.println(val_pr_right);
+
+  //if (val_pr_middle > 650 /* minimum value of black reading */){      // Middle Reads black, check the other sides to figure out what way to turn
+      if ((val_pr_middle > 380 /*minimum value for red reading */) && (val_pr_middle < 410 /* maximum value of red reading */)){
+
+      adjustMotor(3);
+      Serial.println(" Queue Stop Function");
+      }
+
+      else if (val_pr_left > 475 /* minimum value of black reading */){
+
+        //turn left function call
+        Serial.println(" Queue Turn Left Function");
+        adjustMotor(1);
+
+        }
+
+      else if (val_pr_right > 475 /* right reading differently, thfre more  */){
+        //turn right function call
+        Serial.println(" Queue Turn Right Function");
+        adjustMotor(2);
+        }
+
+      else if ((val_pr_middle > 475) && (val_pr_left < 475) && (val_pr_right < 475)){
+
+        adjustMotor(0);
+
+      }
+
+//      else if ((val_pr_middle < 425 /*maximum value for white reading */) && (val_pr_left < 425) && (val_pr_right <425)){
+//           scanIRSideSensor();
+//      }
+
+}
 
 /* updateData
  * This function gathers the most current contitions from each of the sensors. */
@@ -252,5 +243,6 @@ void loop()
 
     blinkLED();       // Visually indicate the beginning of the program
     updateData();     // Gather newest sensor data
+    //motorTest();
 
 }
