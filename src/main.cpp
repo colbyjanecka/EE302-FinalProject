@@ -162,7 +162,7 @@ void scanPhotoresistor(){
 
         adjustMotor(0);
 
-      }
+      } 
 
  // }
 
@@ -179,7 +179,7 @@ void scanPhotoresistor(){
 
 }
 
-void scanIRSideSensor(){
+/* void scanIRSideSensor(){
 
   float  val_ir_left = analogRead(irLeft);
   float  val_ir_right = analogRead(irLeft);
@@ -187,17 +187,17 @@ void scanIRSideSensor(){
   if(val_ir_left > val_ir_right){
 
   //Call right turn function
-  adjustMotor(2);
+ adjustMotor(2);
 
-  }
+ // }
 
-  if(val_ir_left < val_ir_right){
+  //if(val_ir_left < val_ir_right){
 
     //Call left turn function
-    adjustMotor(1);
+  //  adjustMotor(1);
   }
 
-  else{
+ // else{
 
     //Call straight turn function
     adjustMotor(0);
@@ -219,7 +219,7 @@ void scanIRFrontSensor(){
     adjustMotor(0);
   }
 }
-
+*/
 
 /* updateData
  * This function gathers the most current contitions from each of the sensors. */
