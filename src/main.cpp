@@ -27,10 +27,10 @@
 
 void blinkLED();      // Blinks LED
 
-#define motorLPin1 0
-#define motorLPin2 1
-#define motorRPin1 2
-#define motorRPin2 3
+#define motorLPin1 2
+#define motorLPin2 3
+#define motorRPin1 4
+#define motorRPin2 5
 #define motorLEnable 9
 #define motorREnable 10
 
@@ -138,13 +138,13 @@ void scanPhotoresistor(){
  float val_pr_middle = analogRead(photoMiddle); // We need them outside of it, but I don't want to declare them
  float val_pr_right = analogRead(photoRight);  // As global variables
 
- Serial.println(val_pr_left);
- Serial.println(val_pr_middle);
- Serial.println(val_pr_middle);
+ //Serial.println(val_pr_left);
+ //Serial.println(val_pr_middle);
+ //Serial.println(val_pr_right);
 
   //if (val_pr_middle > 650 /* minimum value of black reading */){      // Middle Reads black, check the other sides to figure out what way to turn
 
-      if (val_pr_left > 650 /* minimum value of black reading */){
+      if (val_pr_left > 600 /* minimum value of black reading */){
 
         //turn left function call
         Serial.println(" Queue Turn Left Function");
@@ -152,7 +152,7 @@ void scanPhotoresistor(){
 
         }
 
-      if (val_pr_right > 490/* right reading differently, thfre more  */){
+      if (val_pr_right > 600/* right reading differently, thfre more  */){
         //turn right function call
         Serial.println(" Queue Turn Right Function");
         adjustMotor(2);
@@ -164,7 +164,7 @@ void scanPhotoresistor(){
 
       }
 
-  //}
+ // }
 
   if ((val_pr_middle > 400 /*minimum value for red reading */) && (val_pr_middle < 475 /* maximum value of red reading */)){
 
@@ -173,8 +173,8 @@ void scanPhotoresistor(){
       adjustMotor(3);
   }
 
-  if (val_pr_middle < 350 /*maximum value for white reading */){
-      // run scanIRSideSensor();
+  if ((val_pr_middle < 350 /*maximum value for white reading */) && (val_pr_left < 350) && (val_pr_right <350)){
+      // run scanIRSideSensor();s
   }
 
 }
@@ -251,6 +251,6 @@ void loop()
 {
 
     blinkLED();       // Visually indicate the beginning of the program
-    //updateData();     // Gather newest sensor data
-    motorTest();
+    updateData();     // Gather newest sensor data
+
 }
