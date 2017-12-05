@@ -142,7 +142,7 @@ void scanPhotoresistor(){
  serial.Println(val_pr_middle);
  serial.Println(val_pr_middle);
 
-  if (val_pr_middle > 650 /* minimum value of black reading */){      // Middle Reads black, check the other sides to figure out what way to turn
+  //if (val_pr_middle > 650 /* minimum value of black reading */){      // Middle Reads black, check the other sides to figure out what way to turn
 
       if (val_pr_left > 650 /* minimum value of black reading */){
 
@@ -164,7 +164,7 @@ void scanPhotoresistor(){
 
       }
 
-  }
+  //}
 
   if ((val_pr_middle > 400 /*minimum value for red reading */) && (val_pr_middle < 475 /* maximum value of red reading */)){
 
