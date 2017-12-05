@@ -169,8 +169,8 @@ void scanPhotoresistor(){
  // if ((val_pr_middle > 450 /*minimum value for red reading */) && (val_pr_middle < 525 /* maximum value of red reading */)){
 
       // stopMotor();  Need to define stop function
-      Serial.println(" Queue Stop Function");
-      adjustMotor(3);
+     // Serial.println(" Queue Stop Function");
+     // adjustMotor(3);
   //}
 
  // if ((val_pr_middle < 425 /*maximum value for white reading */) && (val_pr_left < 425) && (val_pr_right <425)){
