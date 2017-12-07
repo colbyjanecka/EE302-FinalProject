@@ -190,12 +190,13 @@ void scanPhotoresistor(){
 
 
 
- //Serial.println(val_pr_left);
- Serial.println(val_pr_middle);
+ Serial.println(val_pr_left);
+ //Serial.println(val_pr_middle);
  //Serial.println(val_pr_right);
+ //Serial.println(val_pr_left + val_pr_middle + val_pr_right);
 
   //if (val_pr_middle > 650 /* minimum value of black reading */){      // Middle Reads black, check the other sides to figure out what way to turn
-      if ((val_pr_middle > 600 /*minimum value for red reading */) && (val_pr_middle < 650 /* maximum value of red reading */) || (val_ir_middle > 500)){
+      if ((/** (val_pr_left) > 600 /*minimum value for red reading ) && **/ 600 < (val_pr_left) < 700 /* maximum value of red reading */) && (600 < (val_pr_middle) < 700) && (600 < (val_pr_right) < 700) || (val_ir_middle > 500)){
 
       adjustMotor(3);
       Serial.println(" Queue Stop Function");
