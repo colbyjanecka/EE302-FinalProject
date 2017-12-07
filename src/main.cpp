@@ -83,10 +83,10 @@ void setup() {
  int adjustMotor(int s){
 
    // . . . Get motor speed
-   analogWrite(motorLEnable, 130);      // I think it's best to call this in the if statements rather than in the adjustmotor function so that they're aren't any infinite loops.
-   analogWrite(motorREnable, 130);
+   analogWrite(motorLEnable, 160);      // I think it's best to call this in the if statements rather than in the adjustmotor function so that they're aren't any infinite loops.
+   analogWrite(motorREnable, 160);
 
-   
+
 
   if (s == 1){
     digitalWrite(motorLPin1, LOW);
@@ -139,10 +139,10 @@ void blinkLED(){
 
 void scanIRSideSensor(){
 
-  float  val_ir_left = analogRead(irLeft)
-  float  val_ir_right = analogRead(irLeft);
+  float  val_ir_left = analogRead(irLeft);
+  float  val_ir_right = analogRead(irRight);
 
-  if (val_ir_left > val_ir_right){
+  if (val_ir_left > val_ir_right) {
 
   //Call right turn function
   adjustMotor(2);
@@ -166,12 +166,12 @@ void scanIRFrontSensor(){
 
   float val_ir_middle = analogRead(irMiddle);
 
-  if(val_ir_middle > 2.48){
+  if(val_ir_middle > 500){
       //Call stop function
       adjustMotor(3);
   }
 
-  else{
+  else {
 
   //Call Straight turn function //Maybe just going back to the main loop would be best for this condition so that we don't get stuck in an infinite loop.
     adjustMotor(0);
@@ -225,11 +225,13 @@ void scanPhotoresistor(){
  * This function gathers the most current contitions from each of the sensors. */
 void updateData(){
 
+    scanIRFrontSensor();
+
     scanPhotoresistor();
 
   //  scanIRSideSensor();
 
-//    scanIRFrontSensor();
+    //scanIRFrontSensor();
 
 }
 
