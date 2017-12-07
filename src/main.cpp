@@ -83,8 +83,8 @@ void setup() {
  int adjustMotor(int s){
 
    // . . . Get motor speed
-   analogWrite(motorLEnable, 100);      // I think it's best to call this in the if statements rather than in the adjustmotor function so that they're aren't any infinite loops.
-   analogWrite(motorREnable, 100);
+   analogWrite(motorLEnable, 115);      // I think it's best to call this in the if statements rather than in the adjustmotor function so that they're aren't any infinite loops.
+   analogWrite(motorREnable, 115);
 
 
 
@@ -93,7 +93,7 @@ void setup() {
     digitalWrite(motorLPin2, HIGH);
     digitalWrite(motorRPin1, HIGH);
     digitalWrite(motorRPin2, LOW);
-    analogWrite(motorLEnable, 80);
+    analogWrite(motorLEnable, 90);
 
     //scanIRFrontSensor();
 
@@ -102,8 +102,8 @@ void setup() {
     digitalWrite(motorLPin1, HIGH);
     digitalWrite(motorLPin2, LOW);
     digitalWrite(motorRPin1, LOW);
-    digitalWrite(motorRPin2, LOW);
-    analogWrite(motorREnable, 80);
+    digitalWrite(motorRPin2, HIGH);
+    analogWrite(motorREnable, 90);
 
     //scanIRFrontSensor();
 
@@ -115,6 +115,22 @@ void setup() {
     digitalWrite(motorRPin2, LOW);
 
     //scanIRFrontSensor();
+  }
+  else if (s == 4){       // Slight Left Turn
+    digitalWrite(motorLPin1, HIGH);
+    digitalWrite(motorLPin2, LOW);
+    digitalWrite(motorRPin1, HIGH);
+    digitalWrite(motorRPin2, LOW);
+    analogWrite(motorLEnable, 50);
+    analogWrite(motorREnable, 100);
+  }
+  else if (s == 5){       //Slight Right Turn
+    digitalWrite(motorLPin1, HIGH);
+    digitalWrite(motorLPin2, LOW);
+    digitalWrite(motorRPin1, HIGH);
+    digitalWrite(motorRPin2, LOW);
+    analogWrite(motorLEnable, 100);
+    analogWrite(motorREnable, 50);
   }
   else {
     digitalWrite(motorLPin1, HIGH);
@@ -140,6 +156,8 @@ void blinkLED(){
 }
 
 void scanIRSideSensor(){
+
+  Serial.println("Scanning IR Side Sensors");
 
   float  val_ir_left = analogRead(irLeft);
   float  val_ir_right = analogRead(irRight);
@@ -190,17 +208,19 @@ void scanPhotoresistor(){
 
 
 
- Serial.println(val_pr_left);
+ //Serial.println(val_pr_left);
  //Serial.println(val_pr_middle);
- //Serial.println(val_pr_right);
+ Serial.println(val_pr_right);
  //Serial.println(val_pr_left + val_pr_middle + val_pr_right);
 
   //if (val_pr_middle > 650 /* minimum value of black reading */){      // Middle Reads black, check the other sides to figure out what way to turn
-      if ((/** (val_pr_left) > 600 /*minimum value for red reading ) && **/ 600 < (val_pr_left) < 700 /* maximum value of red reading */) && (600 < (val_pr_middle) < 700) && (600 < (val_pr_right) < 700) || (val_ir_middle > 500)){
+    if ((val_pr_left < 700 /* maximum value of red reading */) && (val_pr_left > 600 /* maximum value of red reading */) && (val_pr_middle < 700) && (val_pr_middle > 600) &&  (val_pr_right < 700) && (val_pr_right > 600) || (val_ir_middle > 600)){
 
       adjustMotor(3);
       Serial.println(" Queue Stop Function");
       }
+
+
 
       else if (val_pr_left > 550 /* minimum value of black reading */){
 
@@ -214,17 +234,21 @@ void scanPhotoresistor(){
         //turn right function call
         Serial.println(" Queue Turn Right Function");
         adjustMotor(2);
-        }
+      }
 
-      else /** if ((val_pr_middle > 550) && (val_pr_left < 550) && (val_pr_right < 550)) **/ {
+      else if ((val_pr_middle < 500 /*maximum value for white reading */) && (val_pr_left < 500) && (val_pr_right < 500)){
+          adjustMotor(0);
+          //elay(300);
+           scanIRSideSensor();
+      }
+
+        else /** if ((val_pr_middle > 550) && (val_pr_left < 550) && (val_pr_right < 550)) **/ {
 
         adjustMotor(0);
 
-      }
+        }
 
-//      else if ((val_pr_middle < 425 /*maximum value for white reading */) && (val_pr_left < 425) && (val_pr_right <425)){
-//           scanIRSideSensor();
-//      }
+
 
 }
 
@@ -248,7 +272,7 @@ void motorTest(){
     delay(5000);
     adjustMotor(2);   //Turn right
     delay(5000);
-    adjustMotor(0);   //Go Straight
+    adjustMotor(3);   //Go Straight
     delay(5000);
   }
 
