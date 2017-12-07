@@ -83,15 +83,18 @@ void setup() {
  int adjustMotor(int s){
 
    // . . . Get motor speed
-   analogWrite(motorLEnable, 130);
+   analogWrite(motorLEnable, 130);      // I think it's best to call this in the if statements rather than in the adjustmotor function so that they're aren't any infinite loops.
    analogWrite(motorREnable, 130);
 
+   
 
   if (s == 1){
     digitalWrite(motorLPin1, LOW);
     digitalWrite(motorLPin2, LOW);
     digitalWrite(motorRPin1, HIGH);
     digitalWrite(motorRPin2, LOW);
+
+    //scanIRFrontSensor();
 
   }
   else if (s == 2) {
@@ -100,18 +103,24 @@ void setup() {
     digitalWrite(motorRPin1, LOW);
     digitalWrite(motorRPin2, LOW);
 
+    //scanIRFrontSensor();
+
   }
   else if (s == 3){
     digitalWrite(motorLPin1, LOW);
     digitalWrite(motorLPin2, LOW);
     digitalWrite(motorRPin1, LOW);
     digitalWrite(motorRPin2, LOW);
+
+    //scanIRFrontSensor();
   }
   else {
     digitalWrite(motorLPin1, HIGH);
     digitalWrite(motorLPin2, LOW);
     digitalWrite(motorRPin1, HIGH);
     digitalWrite(motorRPin2, LOW);
+
+    //scanIRFrontSensor();
   }
 
 }
@@ -130,7 +139,7 @@ void blinkLED(){
 
 void scanIRSideSensor(){
 
-  float  val_ir_left = analogRead(irLeft);
+  float  val_ir_left = analogRead(irLeft)
   float  val_ir_right = analogRead(irLeft);
 
   if (val_ir_left > val_ir_right){
@@ -164,7 +173,7 @@ void scanIRFrontSensor(){
 
   else{
 
-  //Call Straight turn function
+  //Call Straight turn function //Maybe just going back to the main loop would be best for this condition so that we don't get stuck in an infinite loop.
     adjustMotor(0);
   }
 }
