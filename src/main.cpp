@@ -131,15 +131,12 @@ void setup() {
     digitalWrite(motorRPin2, LOW);
     analogWrite(motorLEnable, 140);
     analogWrite(motorREnable, 80);
-<<<<<<< HEAD
   }
   else if (s == 6){
     digitalWrite(motorLPin1, LOW);
     digitalWrite(motorLPin2, HIGH);
     digitalWrite(motorRPin1, LOW);
     digitalWrite(motorRPin2, HIGH);
-=======
->>>>>>> 6f2d62a57e2164890f9a0f3b27c5c9b7a2ae10e1
   }
   else {
     digitalWrite(motorLPin1, HIGH);
@@ -217,23 +214,14 @@ void scanPhotoresistor(){
 
 
 
-<<<<<<< HEAD
- //Serial.println(val_pr_left);
- Serial.println(val_pr_middle);
-=======
  Serial.println(val_pr_left);
  //Serial.println(val_pr_middle);
->>>>>>> 6f2d62a57e2164890f9a0f3b27c5c9b7a2ae10e1
  //Serial.println(val_pr_right);
  //Serial.println(val_pr_left + val_pr_middle + val_pr_right);
 
   //if (val_pr_middle > 650 /* minimum value of black reading */){      // Middle Reads black, check the other sides to figure out what way to turn
     //if ((val_pr_left < 700 /* maximum value of red reading */) && (val_pr_left > 600 /* maximum value of red reading */) && (val_pr_middle < 700) && (val_pr_middle > 600) &&  (val_pr_right < 700) && (val_pr_right > 600) || (val_ir_middle > 600)){
-<<<<<<< HEAD
     if ((val_pr_left < 625/* maximum value of red reading */) && (val_pr_left > 525 /* maximum value of red reading */) && (val_pr_middle < 625) && (val_pr_middle > 550) || (val_pr_middle < 625) && (val_pr_middle > 550) && (val_pr_right < 700) && (val_pr_right > 625) || (val_ir_middle > 575)){
-=======
-    if ((val_pr_left < 600/* maximum value of red reading */) && (val_pr_left > 525 /* maximum value of red reading */) && (val_pr_middle < 650) && (val_pr_middle > 600) || (val_pr_middle < 650) && (val_pr_middle > 600) && (val_pr_right < 700) && (val_pr_right > 640) || (val_ir_middle > 580)){
->>>>>>> 6f2d62a57e2164890f9a0f3b27c5c9b7a2ae10e1
 
       adjustMotor(6);
       delay(200);
