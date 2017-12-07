@@ -83,16 +83,17 @@ void setup() {
  int adjustMotor(int s){
 
    // . . . Get motor speed
-   analogWrite(motorLEnable, 160);      // I think it's best to call this in the if statements rather than in the adjustmotor function so that they're aren't any infinite loops.
-   analogWrite(motorREnable, 160);
+   analogWrite(motorLEnable, 100);      // I think it's best to call this in the if statements rather than in the adjustmotor function so that they're aren't any infinite loops.
+   analogWrite(motorREnable, 100);
 
 
 
   if (s == 1){
     digitalWrite(motorLPin1, LOW);
-    digitalWrite(motorLPin2, LOW);
+    digitalWrite(motorLPin2, HIGH);
     digitalWrite(motorRPin1, HIGH);
     digitalWrite(motorRPin2, LOW);
+    analogWrite(motorLEnable, 80);
 
     //scanIRFrontSensor();
 
@@ -102,6 +103,7 @@ void setup() {
     digitalWrite(motorLPin2, LOW);
     digitalWrite(motorRPin1, LOW);
     digitalWrite(motorRPin2, LOW);
+    analogWrite(motorREnable, 80);
 
     //scanIRFrontSensor();
 
@@ -164,7 +166,7 @@ void scanIRSideSensor(){
 
 void scanIRFrontSensor(){
 
-  float val_ir_middle = analogRead(irMiddle);
+    float val_ir_middle = analogRead(irMiddle);
 
   if(val_ir_middle > 500){
       //Call stop function
@@ -184,18 +186,22 @@ void scanPhotoresistor(){
  float val_pr_middle = analogRead(photoMiddle); // We need them outside of it, but I don't want to declare them
  float val_pr_right = analogRead(photoRight);  // As global variables
 
+ float val_ir_middle = analogRead(irMiddle);
+
+
+
  //Serial.println(val_pr_left);
  Serial.println(val_pr_middle);
  //Serial.println(val_pr_right);
 
   //if (val_pr_middle > 650 /* minimum value of black reading */){      // Middle Reads black, check the other sides to figure out what way to turn
-      if ((val_pr_middle > 380 /*minimum value for red reading */) && (val_pr_middle < 410 /* maximum value of red reading */)){
+      if ((val_pr_middle > 600 /*minimum value for red reading */) && (val_pr_middle < 650 /* maximum value of red reading */) || (val_ir_middle > 500)){
 
       adjustMotor(3);
       Serial.println(" Queue Stop Function");
       }
 
-      else if (val_pr_left > 475 /* minimum value of black reading */){
+      else if (val_pr_left > 550 /* minimum value of black reading */){
 
         //turn left function call
         Serial.println(" Queue Turn Left Function");
@@ -203,13 +209,13 @@ void scanPhotoresistor(){
 
         }
 
-      else if (val_pr_right > 475 /* right reading differently, thfre more  */){
+      else if (val_pr_right > 550 /* right reading differently, thfre more  */){
         //turn right function call
         Serial.println(" Queue Turn Right Function");
         adjustMotor(2);
         }
 
-      else if ((val_pr_middle > 475) && (val_pr_left < 475) && (val_pr_right < 475)){
+      else /** if ((val_pr_middle > 550) && (val_pr_left < 550) && (val_pr_right < 550)) **/ {
 
         adjustMotor(0);
 
@@ -225,7 +231,7 @@ void scanPhotoresistor(){
  * This function gathers the most current contitions from each of the sensors. */
 void updateData(){
 
-    scanIRFrontSensor();
+    //scanIRFrontSensor();
 
     scanPhotoresistor();
 
