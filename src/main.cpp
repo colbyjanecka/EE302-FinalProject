@@ -121,16 +121,16 @@ void setup() {
     digitalWrite(motorLPin2, LOW);
     digitalWrite(motorRPin1, HIGH);
     digitalWrite(motorRPin2, LOW);
-    analogWrite(motorLEnable, 50);
-    analogWrite(motorREnable, 100);
+    analogWrite(motorLEnable, 80);
+    analogWrite(motorREnable, 200);
   }
   else if (s == 5){       //Slight Right Turn
     digitalWrite(motorLPin1, HIGH);
     digitalWrite(motorLPin2, LOW);
     digitalWrite(motorRPin1, HIGH);
     digitalWrite(motorRPin2, LOW);
-    analogWrite(motorLEnable, 100);
-    analogWrite(motorREnable, 50);
+    analogWrite(motorLEnable, 140);
+    analogWrite(motorREnable, 80);
   }
   else {
     digitalWrite(motorLPin1, HIGH);
@@ -165,14 +165,14 @@ void scanIRSideSensor(){
   if (val_ir_left > val_ir_right) {
 
   //Call right turn function
-  adjustMotor(2);
+  adjustMotor(5);
 
   }
 
   else if (val_ir_left < val_ir_right){
 
     //Call left turn function
-    adjustMotor(1);
+    adjustMotor(4);
   }
 
   else if (val_ir_left == val_ir_right){
@@ -208,13 +208,14 @@ void scanPhotoresistor(){
 
 
 
- //Serial.println(val_pr_left);
+ Serial.println(val_pr_left);
  //Serial.println(val_pr_middle);
- Serial.println(val_pr_right);
+ //Serial.println(val_pr_right);
  //Serial.println(val_pr_left + val_pr_middle + val_pr_right);
 
   //if (val_pr_middle > 650 /* minimum value of black reading */){      // Middle Reads black, check the other sides to figure out what way to turn
-    if ((val_pr_left < 700 /* maximum value of red reading */) && (val_pr_left > 600 /* maximum value of red reading */) && (val_pr_middle < 700) && (val_pr_middle > 600) &&  (val_pr_right < 700) && (val_pr_right > 600) || (val_ir_middle > 600)){
+    //if ((val_pr_left < 700 /* maximum value of red reading */) && (val_pr_left > 600 /* maximum value of red reading */) && (val_pr_middle < 700) && (val_pr_middle > 600) &&  (val_pr_right < 700) && (val_pr_right > 600) || (val_ir_middle > 600)){
+    if ((val_pr_left < 600/* maximum value of red reading */) && (val_pr_left > 525 /* maximum value of red reading */) && (val_pr_middle < 650) && (val_pr_middle > 600) || (val_pr_middle < 650) && (val_pr_middle > 600) && (val_pr_right < 700) && (val_pr_right > 640) || (val_ir_middle > 580)){
 
       adjustMotor(3);
       Serial.println(" Queue Stop Function");
